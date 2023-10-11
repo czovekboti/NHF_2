@@ -5,6 +5,9 @@ import java.util.TimerTask;
 
 public class Game {
     private char currentPlayer;
+    private char player1;
+    private char player2;
+    
     private int boardSize;
     private Cell[][] board;    
     private int round = 0;
@@ -34,13 +37,19 @@ public class Game {
     	round =1;
     }
     public void Opening() {
-    	
+    	currentPlayer = 'B';
+    	for (int i=0;i<3;i++) {
+//    		makeMove();
+    	}
+    		
     }
     
     public void makeMove(int row, int col) {
         // Implementáld a lépés végrehajtásához szükséges logikát
-    	board[col][row].setCellState(currentPlayer);
-    	switchPlayer();
+    	if(round>3) {
+	    	board[col][row].setCellState(currentPlayer);
+	    	switchPlayer();
+    	}
     }
 
     public void pass() {
@@ -51,7 +60,7 @@ public class Game {
         // Implementáld a kövek igazításához szükséges logikát
     	
     }
-
+    
     private void switchPlayer() {
         // Implementáld a játékosváltáshoz szükséges logikát
     	currentPlayer = (currentPlayer=='B') ? 'W' : 'B';
