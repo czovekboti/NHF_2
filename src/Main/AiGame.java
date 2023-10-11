@@ -12,7 +12,7 @@ public class AiGame extends GamePanel {
     }
 	// Játék folyása 
 	public void AiGame() {
-		
+		asdadsd
 	}
 	
 }
