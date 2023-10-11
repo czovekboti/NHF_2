@@ -33,7 +33,10 @@ public class Game {
         // Implementáld a játék kezdéséhez szükséges logikát
     	round =1;
     }
-
+    public void Opening() {
+    	
+    }
+    
     public void makeMove(int row, int col) {
         // Implementáld a lépés végrehajtásához szükséges logikát
     	board[col][row].setCellState(currentPlayer);
