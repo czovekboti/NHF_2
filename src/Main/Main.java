@@ -48,10 +48,10 @@ public class Main {
                 frame.setContentPane(new SizeMenu(this));
                 break;
             case AI_GAME:
-                frame.setContentPane(new AiGame(this.getsize()));
+                frame.setContentPane(new GamePanel(new AiGame(this.getsize())));
                 break;
             case PLAYERS_GAME:
-                frame.setContentPane(new PlayersGame(this.getsize()));
+                frame.setContentPane(new GamePanel(new PlayersGame(this.getsize())));
                 break;
         }
         

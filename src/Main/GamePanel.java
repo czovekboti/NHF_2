@@ -5,25 +5,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel{
+	private Game game;
 	private int boardSize;
-	private Cell board[][];
 	private int selectedRow;
     private int selectedCol;
     private int cellSize;
     private int startY;
     private int startX;   
-    private int round;
     // GamePanel konstruktor
-    public GamePanel(int boardSize) {
-        this.boardSize = boardSize+=1;
+    public GamePanel(Game game) {
+    	this.game =game;
         this.selectedRow = -1;
         this.selectedCol= -1;
-        board = new Cell[boardSize][boardSize];
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                board[i][j] = new Cell(i,j);
-            }
-        }
+        this.boardSize = game.getBoardSize();
         // Cellák kijelöléséhez szükséges
         addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -60,9 +54,9 @@ public class GamePanel extends JPanel{
                 int x = startX + col * cellSize;
                 int y = startY + row * cellSize;
                 g.drawRect(x, y, cellSize, cellSize);  
-                char cellState = board[row][col].getCellState();
+                
                 // A paint metódus hívása a cellára
-                board[row][col].paint(g, cellSize, startX, startY);                
+                game.getCell(row, col).paint(g, cellSize, startX, startY);                
             	}
         	}        
     }
@@ -85,8 +79,8 @@ public class GamePanel extends JPanel{
         if (selectedRow != -1 && selectedCol != -1) {
             // Itt hozzáadhatod a bábu elhelyezését a megfelelő helyre
             System.out.println("Bábu letéve a cellára: " + selectedRow + ", " + selectedCol);
-            board[selectedCol][selectedRow].setCellState('B');
-            System.out.println(board[selectedCol][selectedRow].getCellState());
+            game.makeMove(selectedRow, selectedCol);
+            System.out.println(game.getCell(selectedRow, selectedCol).row+ " " + game.getCell(selectedRow, selectedCol).col);
         }
     }
     
