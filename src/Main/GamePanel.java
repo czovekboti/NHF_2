@@ -1,11 +1,14 @@
 package Main;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel{
 	private Game game;
+	private SwitchPanel switchPanel;
 	private int boardSize;
 	private int selectedRow;
     private int selectedCol;
@@ -14,6 +17,10 @@ public class GamePanel extends JPanel{
     private int startX;   
     // GamePanel konstruktor
     public GamePanel(Game game) {
+    	setLayout(new BorderLayout());
+        switchPanel = new SwitchPanel();
+        add(switchPanel, BorderLayout.SOUTH);
+        switchPanel.setVisible(false);
     	this.game =game;
         this.selectedRow = -1;
         this.selectedCol= -1;
@@ -30,9 +37,11 @@ public class GamePanel extends JPanel{
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+            	if (game.getRound() !=3) {
             	placePiece(e.getX(), e.getY());
+            	System.out.println(game.getRound());
             	repaint();
-            }            
+            	}}            
         });
         
         
@@ -41,10 +50,16 @@ public class GamePanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(new Color(100,149,237,150));
-        drawBoard(g);
-        highlightCell(g);        
+        if(game.getRound()==3) {   
+        	switchPanel.setVisible(true);
+    	}
+        else {        	
+        	drawBoard(g);
+        	highlightCell(g);
+        }
     }
     private void drawBoard(Graphics g) {
+    	
         g.setColor(Color.black);
         cellSize = Math.min(getWidth() / boardSize, getHeight() / boardSize);
 	    startX = (getWidth() - cellSize * boardSize) /2;

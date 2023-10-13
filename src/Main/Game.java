@@ -1,18 +1,30 @@
 package Main;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Game {
+	
     private char currentPlayer;
-    private char player1;
-    private char player2;
-    
+    private char player1 = 'W';
+    private char player2 = 'B';    
     private int boardSize;
     private Cell[][] board;    
     private int round = 0;
+    public int getRound() {
+    	return round;
+    }
+    public void setRound(int n) {
+    	round = n;
+    }
+    public int getboardSize() {
+    	return boardSize;
+    }
+    
 
     public Game(int boardSize) {
+    	
         this.boardSize = boardSize + 1;
         this.board = new Cell[this.boardSize][this.boardSize];
         this.currentPlayer = 'B'; // Fekete kezd
@@ -36,17 +48,18 @@ public class Game {
         // Implementáld a játék kezdéséhez szükséges logikát
     	round =1;
     }
-    public void Opening() {
-    	currentPlayer = 'B';
-    	for (int i=0;i<3;i++) {
-//    		makeMove();
-    	}
-    		
-    }
-    
     public void makeMove(int row, int col) {
+    	// Nyitás, két fekete egy fehér bábut rak le a kezdő játékos
+    	if (round <3) {
+    		currentPlayer = 'B';
+    		board[col][row].setCellState(currentPlayer);
+    		round+=1;
+    	}
+    	if(round==3) {
+    		
+    	}
         // Implementáld a lépés végrehajtásához szükséges logikát
-    	if(round>3) {
+    	if(round <5) {
 	    	board[col][row].setCellState(currentPlayer);
 	    	switchPlayer();
     	}
@@ -65,10 +78,7 @@ public class Game {
         // Implementáld a játékosváltáshoz szükséges logikát
     	currentPlayer = (currentPlayer=='B') ? 'W' : 'B';
     	
-    }
-
-    
-
+    }   
     private void checkForWin() {
     	// Implementáld a győzelem ellenőrzéséhez szükséges logikát
     

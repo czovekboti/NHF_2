@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Cell {
+	
 	public int row;
 	public int col;
 	private boolean isBlack;
