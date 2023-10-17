@@ -5,7 +5,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Game {
-	
     private char currentPlayer;
     private char player1 = 'W';
     private char player2 = 'B';    
@@ -18,13 +17,7 @@ public class Game {
     public void setRound(int n) {
     	round = n;
     }
-    public int getboardSize() {
-    	return boardSize;
-    }
-    
-
-    public Game(int boardSize) {
-    	
+    public Game(int boardSize) {	
         this.boardSize = boardSize + 1;
         this.board = new Cell[this.boardSize][this.boardSize];
         this.currentPlayer = 'B'; // Fekete kezd
@@ -37,7 +30,6 @@ public class Game {
         
     }
     public Cell getCell(int row, int col) {
-    	
 		return board[row][col];
     	
     }
@@ -50,16 +42,24 @@ public class Game {
     }
     public void makeMove(int row, int col) {
     	// Nyitás, két fekete egy fehér bábut rak le a kezdő játékos
-    	if (round <3) {
+    	if (round < 3) {
     		currentPlayer = 'B';
     		board[col][row].setCellState(currentPlayer);
     		round+=1;
     	}
-    	if(round==3) {
-    		
+    	if(round == 3) {
+    		switchPlayer();
+    		board[col][row].setCellState(currentPlayer);
+    		round+=1;
     	}
-        // Implementáld a lépés végrehajtásához szükséges logikát
-    	if(round <5) {
+    	if(round == 4) {
+    		board[col][row].setCellState(currentPlayer);
+    	}
+    	//javaslat feltevése
+    	if(round == 5  && round == 6) {
+    		round+=1;
+    	}
+    	if(round > 6) {
 	    	board[col][row].setCellState(currentPlayer);
 	    	switchPlayer();
     	}
@@ -71,7 +71,6 @@ public class Game {
 
     public void adjustStones(int row, int col) {
         // Implementáld a kövek igazításához szükséges logikát
-    	
     }
     
     private void switchPlayer() {
@@ -81,7 +80,6 @@ public class Game {
     }   
     private void checkForWin() {
     	// Implementáld a győzelem ellenőrzéséhez szükséges logikát
-    
     }
     
 }
