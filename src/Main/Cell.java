@@ -41,6 +41,11 @@ public class Cell {
 		else if(s =='S') {
 			this.isSelected=true;
 		}
+		else if(s=='E') {
+			this.isBlack=false;
+			this.isSelected = false;
+			this.isWhite= false;
+		}
 		
 	}
 	public void paint(Graphics g, int cellSize, int startX, int startY) {

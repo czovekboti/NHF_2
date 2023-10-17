@@ -1,8 +1,6 @@
 package Main;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -35,7 +33,6 @@ public class GamePanel extends JPanel{
             public void mousePressed(MouseEvent e) {
             	placePiece(e.getX(), e.getY());
             	repaint();
-            	System.out.println(game.getCell(selectedCol-1,selectedRow-1).getCellState());
             }
         });
     }
@@ -50,11 +47,18 @@ public class GamePanel extends JPanel{
     }
 	private void drawCells(Graphics g) {
 		for (int row = 0; row < boardSize; row++) {
-            for (int col = 0; col < boardSize; col++) {                  
+            for (int col = 0; col < boardSize; col++) {     
                 // A paint metódus hívása a cellára
-                game.getCell(row, col).paint(g, cellSize, startX, startY);   
+            	if (game.getRound()<7) {
+            		game.getCell(row, col).paint(g, cellSize, startX, startY);            	
             	}
-        	}
+            	else if(game.getCell(row, col).getCellState() !='S') {
+            		game.getCell(row, col).paint(g, cellSize, startX, startY);
+            	}
+            	else
+            		continue;
+            }
+		}
 	}
     private void drawBoard(Graphics g) {    	
         g.setColor(Color.black);
@@ -81,19 +85,21 @@ public class GamePanel extends JPanel{
     }
     //Kirajzolja azt a cellát, amelyen áll az egér
     private void highlightCell(Graphics g) {
-    	g.setColor(new Color(255,255,255,100));
-    	int centerX = startX + selectedCol*cellSize;
-    	int centerY = startY + selectedRow*cellSize;
-    	int radius = cellSize/2;
-    	g.fillOval(centerX - radius, centerY - radius, 2 * radius, 2 * radius);
+    	if(selectedRow != -1 && selectedCol != -1) {
+    		if(game.getCell(selectedCol-1, selectedRow-1).getCellState() == 'E'){
+		    	g.setColor(new Color(255,255,255,100));
+		    	int centerX = startX + selectedCol*cellSize;
+		    	int centerY = startY + selectedRow*cellSize;
+		    	int radius = cellSize/2;
+		    	g.fillOval(centerX - radius, centerY - radius, 2 * radius, 2 * radius);}
+    		}
     }
     //Bábu elhelyezésére szolgál
     private void placePiece(int x, int y) {
         if (selectedRow != -1 && selectedCol != -1) {
             // Hozzáadja a kiválasztott cellához és oszlophoz az éppen soron lévő játékos bábuját
             game.makeMove(selectedCol-1, selectedRow-1);
-            System.out.println(selectedRow+" " +selectedCol);
-            System.out.println("asd");
+            
 
         }
     }

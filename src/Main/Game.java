@@ -51,7 +51,7 @@ public class Game {
     		System.out.println(round);
     		
     	}
-    	//eldöntik hogy cserélnek-e majd utána folytatdikk a játék
+    	//eldöntik hogy cserélnek-e majd utána folytatdik a játék
     	else if(round == 3) {
     		board[col][row].setCellState(currentPlayer);
     		round+=1;
@@ -59,24 +59,29 @@ public class Game {
     	}
     	//javaslat feltevése
     	else if(round == 4  || round == 5) {
-    		currentPlayer = 'S';
-    		board[col][row].setCellState(currentPlayer);	
-    		round+=1;	
-    		System.out.println(round);
+    		if(board[col][row].getCellState()=='E') {
+	    		currentPlayer = 'S';
+	    		board[col][row].setCellState(currentPlayer);	
+	    		round+=1;	
+	    		System.out.println(round);
+    		}
     	}
     	else if(round == 6) {
     		currentPlayer = 'B';
     		if(board[col][row].getCellState()=='S') {
+    			round+=1;
     			board[col][row].setCellState(currentPlayer);
-    			round+=1;	
+    				
     			System.out.println(round);}
     	}
     	
     	else if(round > 6) {
-    		switchPlayer();
-    		board[col][row].setCellState(currentPlayer);
-	    	checkForWin();
-	    	System.out.println(round);
+    		if(board[col][row].getCellState()=='E') {
+	    		switchPlayer();
+	    		board[col][row].setCellState(currentPlayer);
+		    	checkForWin();
+		    	System.out.println(round);
+    		}
     	}
     	
     }
