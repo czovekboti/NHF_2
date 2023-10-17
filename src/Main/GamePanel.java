@@ -33,15 +33,9 @@ public class GamePanel extends JPanel{
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-//            	if (game.getRound() !=5 && game.getRound()!=6) {
             	placePiece(e.getX(), e.getY());
             	repaint();
             	System.out.println(game.getCell(selectedCol-1,selectedRow-1).getCellState());
-//            	}
-//            	else {
-//            		placePiece(e.getX(), e.getY());
-//                	repaint();
-//            	}
             }
         });
     }
@@ -50,9 +44,18 @@ public class GamePanel extends JPanel{
         super.paintComponent(g);
         setBackground(new Color(100,149,237,150));      	
     	drawBoard(g);
+    	drawCells(g);
     	highlightCell(g);
     
     }
+	private void drawCells(Graphics g) {
+		for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {                  
+                // A paint metódus hívása a cellára
+                game.getCell(row, col).paint(g, cellSize, startX, startY);   
+            	}
+        	}
+	}
     private void drawBoard(Graphics g) {    	
         g.setColor(Color.black);
         cellSize = Math.min(getWidth() / boardSize, getHeight() / boardSize);
@@ -64,16 +67,13 @@ public class GamePanel extends JPanel{
                 int x = startX + col * cellSize;
                 int y = startY + row * cellSize;
                 g.drawRect(x, y, cellSize, cellSize);                  
-                // A paint metódus hívása a cellára
-                game.getCell(row, col).paint(g, cellSize, startX, startY);   
-                
             	}
         	}        
     }
     //Kiszámolja melyik cellán áll az egér
     private void updateSelectedCell(int x, int y) {
-    	selectedRow = ((x+cellSize/2)/cellSize);
-    	selectedCol= ((y+cellSize/2)/cellSize);
+    	selectedCol = ((x+cellSize/2)/cellSize);
+    	selectedRow= ((y+cellSize/2)/cellSize);
     	if (selectedCol < 1 || selectedCol > boardSize - 1 || selectedRow < 1 || selectedRow > boardSize - 1) {
             selectedCol = -1;
             selectedRow = -1;
@@ -82,8 +82,8 @@ public class GamePanel extends JPanel{
     //Kirajzolja azt a cellát, amelyen áll az egér
     private void highlightCell(Graphics g) {
     	g.setColor(new Color(255,255,255,100));
-    	int centerX = startX + selectedRow*cellSize;
-    	int centerY = startY + selectedCol*cellSize;
+    	int centerX = startX + selectedCol*cellSize;
+    	int centerY = startY + selectedRow*cellSize;
     	int radius = cellSize/2;
     	g.fillOval(centerX - radius, centerY - radius, 2 * radius, 2 * radius);
     }
@@ -91,7 +91,9 @@ public class GamePanel extends JPanel{
     private void placePiece(int x, int y) {
         if (selectedRow != -1 && selectedCol != -1) {
             // Hozzáadja a kiválasztott cellához és oszlophoz az éppen soron lévő játékos bábuját
-            game.makeMove(selectedRow-1, selectedCol-1);
+            game.makeMove(selectedCol-1, selectedRow-1);
+            System.out.println(selectedRow+" " +selectedCol);
+            System.out.println("asd");
 
         }
     }

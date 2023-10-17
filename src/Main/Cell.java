@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Cell {
-	
 	public int row;
 	public int col;
 	private boolean isBlack;
 	private  boolean isWhite;
-	public Cell(int row,int col) {
+	private boolean isSelected; 
+	public Cell(int col,int row) {
 		this.row = row;
 		this.col = col;
 		
@@ -23,22 +23,29 @@ public class Cell {
 		if(isWhite) {
 			state = 'W';
 		}
+		if(isSelected) {
+			state= 'S';
+		}
 		
 		return state;
 	}
 	// Beállítja a cella állapotát
 	protected void setCellState(char s) {
-		if(s =='B') {
+		if(s =='B' && isWhite==false) {
 			this.isBlack=true;
+			this.isSelected = false;
 		}
-		else if(s =='W') {
+		else if(s =='W' && isBlack ==false) {
 			this.isWhite=true;
+		}
+		else if(s =='S') {
+			this.isSelected=true;
 		}
 		
 	}
 	public void paint(Graphics g, int cellSize, int startX, int startY) {
-        int x = startX+ col * cellSize+cellSize;
-        int y = startY + row * cellSize+cellSize;
+        int x = startX+ row * cellSize+cellSize;
+        int y = startY + col * cellSize+cellSize;
 
         // Rajzolás a cella állapotától függően
         if (isBlack) {
@@ -49,11 +56,11 @@ public class Cell {
             g.setColor(Color.WHITE);
             g.fillOval(x - cellSize / 2, y - cellSize / 2, cellSize, cellSize);
         	} 
-        else {
-            // Rajzolj keretet, ha a cella üres
-            g.setColor(Color.BLACK);
-            g.drawRect(x, y, cellSize, cellSize);
-        }
+        if(isSelected) {
+            g.setColor(new Color(0,0,0,100));
+            g.fillOval(x - cellSize / 2, y - cellSize / 2, cellSize, cellSize);
+        	}
+        
         g.setColor(Color.BLACK);
 	}
 	
