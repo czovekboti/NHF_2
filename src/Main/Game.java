@@ -38,27 +38,38 @@ public class Game {
     }
     public void makeMove(int row, int col) {
     	// Nyitás, két fekete egy fehér bábut rak le a kezdő játékos
-    	if (round < 3) {
+    	
+    	if (round < 2) {
     		currentPlayer = 'B';
     		board[col][row].setCellState(currentPlayer);
     		round+=1;
+    		System.out.println(round);
     	}
-    	if(round == 3) {
+    	else if(round == 2) {
     		switchPlayer();
     		board[col][row].setCellState(currentPlayer);
     		round+=1;
+    		System.out.println(round);
+    		
     	}
-    	if(round == 4) {
+    	else if(round == 3) {
     		board[col][row].setCellState(currentPlayer);
+    		round+=1;
+    		System.out.println(round);
     	}
     	//javaslat feltevése
-    	if(round == 5  && round == 6) {
+    	else if(round == 4  || round == 6) {
+    		board[col][row].setCellState(currentPlayer);
     		round+=1;
+    		System.out.println(round);
     	}
-    	if(round > 6) {
+    	else if(round >= 5) {
 	    	board[col][row].setCellState(currentPlayer);
 	    	switchPlayer();
+	    	checkForWin();
+	    	System.out.println(round);
     	}
+    	
     }
 
     public void pass() {
@@ -74,8 +85,18 @@ public class Game {
     	currentPlayer = (currentPlayer=='B') ? 'W' : 'B';
     	
     }   
-    private void checkForWin() {
+    public void checkForWin() {
     	// Implementáld a győzelem ellenőrzéséhez szükséges logikát
+    	int szamlalo = 0;
+    	for (int i =0; i<boardSize;i++) {    		
+    		if (board[0][i].getCellState() == 'W') {
+    			System.out.println("baztad");
+    		}
+    		
+    	}
+    if(szamlalo==5) {
+    	System.out.println("baztad");
+    }
     }
     
 }

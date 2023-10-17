@@ -33,14 +33,15 @@ public class GamePanel extends JPanel{
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-            	if (game.getRound() !=5 && game.getRound()!=6) {
+//            	if (game.getRound() !=5 && game.getRound()!=6) {
             	placePiece(e.getX(), e.getY());
             	repaint();
             	System.out.println(game.getCell(selectedCol-1,selectedRow-1).getCellState());
-            	}
-            	else {
-            		
-            	}
+//            	}
+//            	else {
+//            		placePiece(e.getX(), e.getY());
+//                	repaint();
+//            	}
             }
         });
     }
