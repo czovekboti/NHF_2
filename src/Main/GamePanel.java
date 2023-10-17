@@ -55,8 +55,6 @@ public class GamePanel extends JPanel{
             	else if(game.getCell(row, col).getCellState() !='S') {
             		game.getCell(row, col).paint(g, cellSize, startX, startY);
             	}
-            	else
-            		continue;
             }
 		}
 	}
