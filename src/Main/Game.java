@@ -1,9 +1,5 @@
 package Main;
 
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class Game {
     private char currentPlayer;
     private char player1 = 'W';

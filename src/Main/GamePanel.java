@@ -36,6 +36,7 @@ public class GamePanel extends JPanel{
             	if (game.getRound() !=5 && game.getRound()!=6) {
             	placePiece(e.getX(), e.getY());
             	repaint();
+            	System.out.println(game.getCell(selectedCol-1,selectedRow-1).getCellState());
             	}
             	else {
             		
@@ -63,7 +64,8 @@ public class GamePanel extends JPanel{
                 int y = startY + row * cellSize;
                 g.drawRect(x, y, cellSize, cellSize);                  
                 // A paint metódus hívása a cellára
-                game.getCell(row, col).paint(g, cellSize, startX, startY);                
+                game.getCell(row, col).paint(g, cellSize, startX, startY);   
+                
             	}
         	}        
     }
@@ -88,7 +90,8 @@ public class GamePanel extends JPanel{
     private void placePiece(int x, int y) {
         if (selectedRow != -1 && selectedCol != -1) {
             // Hozzáadja a kiválasztott cellához és oszlophoz az éppen soron lévő játékos bábuját
-            game.makeMove(selectedRow, selectedCol);
+            game.makeMove(selectedRow-1, selectedCol-1);
+
         }
     }
     

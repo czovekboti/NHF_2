@@ -37,8 +37,8 @@ public class Cell {
 		
 	}
 	public void paint(Graphics g, int cellSize, int startX, int startY) {
-        int x = startX+ col * cellSize;
-        int y = startY + row * cellSize;
+        int x = startX+ col * cellSize+cellSize;
+        int y = startY + row * cellSize+cellSize;
 
         // Rajzolás a cella állapotától függően
         if (isBlack) {
@@ -54,6 +54,7 @@ public class Cell {
             g.setColor(Color.BLACK);
             g.drawRect(x, y, cellSize, cellSize);
         }
+        g.setColor(Color.BLACK);
 	}
 	
 }
