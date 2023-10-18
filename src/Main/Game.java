@@ -76,7 +76,9 @@ public class Game {
     		if(board[col][row].getCellState()=='E') {
 	    		switchPlayer();
 	    		board[col][row].setCellState(currentPlayer);
-		    	checkForWin();
+		    	if(checkForWin(currentPlayer)) {
+		    		System.out.println("nyert"+currentPlayer);
+		    	}
 		    	System.out.println(round);
     		}
     	}
@@ -92,6 +94,7 @@ public class Game {
         // Implementáld a játékosváltáshoz szükséges logikát
     	currentPlayer = (currentPlayer=='B') ? 'W' : 'B';  	
     }   
+    //Emptyre állítja azokat a cellákat amelyek selectedek
     private void resetSelectedCells() {
     	for (int i = 0; i < this.boardSize; i++) {
             for (int j = 0; j < this.boardSize; j++) {
@@ -102,18 +105,70 @@ public class Game {
         }	
     }
     //ellenőrizzük hogy nyert e valamelyik játékos
-    public void checkForWin() {
+    public boolean checkForWin(char currentPlayer) {
+    	boolean nyert=false;
+    	//sorban 5 
     	int szamlalo = 0;
-    	for (int i =0; i<boardSize;i++) {    		
-    		if (board[0][i].getCellState() == 'W') {
-    			System.out.println("baztad");
+    	for (int i =0; i<boardSize;i++) { 
+    		szamlalo= 0;
+    		for (int j = 0; j < this.boardSize; j++) {
+	    		if (board[i][j].getCellState() == currentPlayer) {
+	    			szamlalo +=1;
+	    			if (szamlalo ==5) {
+	    				if(currentPlayer == 'W') {
+	    					System.out.println("nyert a fehér");
+	    					return true;
+	    				}
+	    				//fekete rakott ki 5-öt sorban
+	    				if(currentPlayer == 'B' && board[i][j+1].getCellState()!='B') {
+	    					System.out.println("nyert a fekete");
+	    					return true;
+	    				}
+	    				//Overeline
+	    				else {
+	    					System.out.println("nyert a fehér");
+	    					return true;
+	    				}
+	    			}
+	    		}
+	    		
+	    		else {
+	    			szamlalo=0;
+	    		}
     		}
-    		
     	}
-    if(szamlalo==5) {
-    	System.out.println("baztad");
+    	//oszlopban 5 
+    	for (int i =0; i<boardSize;i++) { 
+    		szamlalo= 0;
+    		for (int j = 0; j < this.boardSize; j++) {
+	    		if (board[j][i].getCellState() == currentPlayer) {
+	    			szamlalo +=1;
+	    			if (szamlalo ==5) {
+	    				if(currentPlayer == 'W') {
+	    					System.out.println("nyert a fehér");
+	    					return true;
+	    				}
+	    				//fekete rakott ki 5-öt oszlopban
+	    				if(currentPlayer == 'B' && board[j+1][i].getCellState() != 'B') {
+	    					System.out.println("nyert a fekete");
+	    					return true;
+	    				}
+	    				//Overeline
+	    				else {
+	    					System.out.println("nyert a fehér");
+	    					return true;
+	    				}
+	    			}
+	    		}
+	    		
+	    		else {
+	    			szamlalo=0;
+	    		}
+    		}
+    	}
+    	return nyert;
     }
-    }
+    //ellenőrzi, hogy döntetlen-e az eredmény
     public void checkForDraw() {
     	for (int i = 0; i < this.boardSize; i++) {
             for (int j = 0; j < this.boardSize; j++) {
