@@ -166,6 +166,47 @@ public class Game {
 	    		}
     		}
     	}
+    	//átlóban
+    	szamlalo= 0;
+    	for (int i =0; i<boardSize-5;i++) { 
+    		for (int j = 0; j < this.boardSize-5; j++) {
+	    		if (board[i][j].getCellState() == currentPlayer) {
+	    			for(int k = 0; k<5; k++) {
+	    				if(board[i+k][j+k].getCellState() == currentPlayer) {
+	    					szamlalo+=1;
+	    					if (szamlalo ==5) {
+	    						if(currentPlayer == 'W') {
+	    	    					System.out.println("nyert a fehér");
+	    	    					return true;
+	    	    				}
+	    	    				//fekete rakott ki 5-öt oszlopban
+	    	    				if(currentPlayer == 'B' && board[j+k+1][i+k+1].getCellState() != 'B') {
+	    	    					System.out.println("nyert a fekete");
+	    	    					return true;
+	    	    				}
+	    	    				//Overeline
+	    	    				else {
+	    	    					System.out.println("nyert a fehér");
+	    	    					return true;
+	    	    				}
+	    					}
+	    				}
+	    				else {
+	    					szamlalo=0;
+	    				}
+	    			}
+	    		
+	    			
+	    			
+	    		}
+	    		
+	    		else {
+	    			szamlalo=0;
+	    		}
+    		}
+    	}
+    	
+    	
     	return nyert;
     }
     //ellenőrzi, hogy döntetlen-e az eredmény
