@@ -101,8 +101,8 @@ public class Game {
             }
         }	
     }
+    //ellenőrizzük hogy nyert e valamelyik játékos
     public void checkForWin() {
-    	// Implementáld a győzelem ellenőrzéséhez szükséges logikát
     	int szamlalo = 0;
     	for (int i =0; i<boardSize;i++) {    		
     		if (board[0][i].getCellState() == 'W') {
