@@ -14,27 +14,24 @@ public class Game {
     	round = n;
     }
     public Game(int boardSize) {	
-        this.boardSize = boardSize + 1;
+        this.boardSize = boardSize+1;
+        System.out.println(this.boardSize);
         this.board = new Cell[this.boardSize][this.boardSize];
         this.currentPlayer = 'B'; // Fekete kezd
         // Cellák inicializálása
         for (int i = 0; i < this.boardSize; i++) {
             for (int j = 0; j < this.boardSize; j++) {
                 this.board[i][j] = new Cell(i, j);
+                
             }
         }
         
     }
     public Cell getCell(int col, int row) {
 		return board[row][col];
-    	
     }
     public int getBoardSize() {
     	return boardSize;
-    }
-    public void startGame() {
-        // Implementáld a játék kezdéséhez szükséges logikát
-    	round =1;
     }
     public void makeMove(int row, int col) {
     	// Nyitás, két fekete egy fehér bábut rak le a kezdő játékos
@@ -69,13 +66,13 @@ public class Game {
     	else if(round == 6) {
     		currentPlayer = 'B';
     		if(board[col][row].getCellState()=='S') {
-    			round+=1;
     			board[col][row].setCellState(currentPlayer);
-    				
-    			System.out.println(round);}
+    			System.out.println(round);
+    			round+=1;
+    			resetSelectedCells();
+    		}
     	}
-    	
-    	else if(round > 6) {
+    	else if(round > 6) {	
     		if(board[col][row].getCellState()=='E') {
 	    		switchPlayer();
 	    		board[col][row].setCellState(currentPlayer);
@@ -85,20 +82,25 @@ public class Game {
     	}
     	
     }
-
     public void pass() {
         // Implementáld a passzoláshoz szükséges logikát
     }
-
     public void adjustStones(int row, int col) {
         // Implementáld a kövek igazításához szükséges logikát
     }
-    
     private void switchPlayer() {
         // Implementáld a játékosváltáshoz szükséges logikát
-    	currentPlayer = (currentPlayer=='B') ? 'W' : 'B';
-    	
+    	currentPlayer = (currentPlayer=='B') ? 'W' : 'B';  	
     }   
+    private void resetSelectedCells() {
+    	for (int i = 0; i < this.boardSize; i++) {
+            for (int j = 0; j < this.boardSize; j++) {
+                if(this.board[i][j].getCellState() == 'S' ){
+                	this.board[i][j].setCellState('E');
+                }
+            }
+        }	
+    }
     public void checkForWin() {
     	// Implementáld a győzelem ellenőrzéséhez szükséges logikát
     	int szamlalo = 0;
@@ -111,6 +113,16 @@ public class Game {
     if(szamlalo==5) {
     	System.out.println("baztad");
     }
+    }
+    public void checkForDraw() {
+    	for (int i = 0; i < this.boardSize; i++) {
+            for (int j = 0; j < this.boardSize; j++) {
+                if(this.board[i][j].getCellState() == 'E' ){
+                	return;
+                }
+            }
+        }
+    	System.out.println("Nyert");
     }
     
 }

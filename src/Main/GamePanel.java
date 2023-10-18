@@ -49,14 +49,9 @@ public class GamePanel extends JPanel{
 		for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {     
                 // A paint metódus hívása a cellára
-            	if (game.getRound()<7) {
-            		game.getCell(row, col).paint(g, cellSize, startX, startY);            	
-            	}
-            	else if(game.getCell(row, col).getCellState() !='S') {
-            		game.getCell(row, col).paint(g, cellSize, startX, startY);
-            	}
-            }
-		}
+            	game.getCell(row, col).paint(g, cellSize, startX, startY);
+        	}
+        }		
 	}
     private void drawBoard(Graphics g) {    	
         g.setColor(Color.black);
@@ -84,7 +79,7 @@ public class GamePanel extends JPanel{
     //Kirajzolja azt a cellát, amelyen áll az egér
     private void highlightCell(Graphics g) {
     	if(selectedRow != -1 && selectedCol != -1) {
-    		if(game.getCell(selectedCol-1, selectedRow-1).getCellState() == 'E'){
+    		if(game.getCell(selectedCol-1, selectedRow-1).getCellState() == 'E' || game.getCell(selectedCol-1, selectedRow-1).getCellState() == 'S'){
 		    	g.setColor(new Color(255,255,255,100));
 		    	int centerX = startX + selectedCol*cellSize;
 		    	int centerY = startY + selectedRow*cellSize;
