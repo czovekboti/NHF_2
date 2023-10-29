@@ -14,7 +14,7 @@ public class Game {
     	round = n;
     }
     public Game(int boardSize) {	
-        this.boardSize = boardSize+1;
+        this.boardSize = boardSize;
         System.out.println(this.boardSize);
         this.board = new Cell[this.boardSize][this.boardSize];
         this.currentPlayer = 'B'; // Fekete kezd
@@ -28,12 +28,17 @@ public class Game {
         
     }
     public Cell getCell(int col, int row) {
-		return board[row][col];
+    	if(col<=14 && row<=14) {		
+    		return board[row][col];}
+    	else {
+    		return board[0][0];
+    	}
     }
     public int getBoardSize() {
     	return boardSize;
     }
     public void makeMove(int row, int col) {
+    	
     	// Nyitás, két fekete egy fehér bábut rak le a kezdő játékos
     	if (round < 2) {
     		currentPlayer = 'B';
@@ -82,7 +87,7 @@ public class Game {
 		    	System.out.println(round);
     		}
     	}
-    	
+    	System.out.println(row+" "+ col+ " "+ board[row][col].getCellState());
     }
     public void pass() {
         // Implementáld a passzoláshoz szükséges logikát
@@ -104,6 +109,14 @@ public class Game {
             }
         }	
     }
+    private int checkCellState(Cell cell, char currentPlayer, int szamlalo) {
+		if (cell.getCellState() == currentPlayer) {
+		        szamlalo += 1;
+		    } else {
+		        szamlalo = 0;
+		    }
+		    return szamlalo;
+	}
     //ellenőrizzük hogy nyert e valamelyik játékos
     public boolean checkForWin(char currentPlayer) {
     	boolean nyert=false;
@@ -112,31 +125,26 @@ public class Game {
     	for (int i =0; i<boardSize;i++) { 
     		szamlalo= 0;
     		for (int j = 0; j < this.boardSize; j++) {
-	    		if (board[i][j].getCellState() == currentPlayer) {
-	    			szamlalo +=1;
-	    			if (szamlalo ==5) {
-	    				if(currentPlayer == 'W') {
-	    					System.out.println("nyert a fehér");
-	    					return true;
-	    				}
-	    				//fekete rakott ki 5-öt sorban
-	    				if(currentPlayer == 'B' && board[i][j+1].getCellState()!='B') {
-	    					System.out.println("nyert a fekete");
-	    					return true;
-	    				}
-	    				//Overeline
-	    				else {
-	    					System.out.println("nyert a fehér");
-	    					return true;
-	    				}
-	    			}
-	    		}
-	    		
-	    		else {
-	    			szamlalo=0;
-	    		}
-    		}
+    			szamlalo = checkCellState(board[i][j], currentPlayer,szamlalo);
+    			if (szamlalo ==5) {
+    				if(currentPlayer == 'W') {
+    					System.out.println("nyert a fehér");
+    					return true;
+    				}
+    				//fekete rakott ki 5-öt sorban
+    				if(currentPlayer == 'B' && board[i][j+1].getCellState()!='B') {
+    					System.out.println("nyert a fekete");
+    					return true;
+    				}
+    				//Overeline
+    				else {
+    					System.out.println("nyert a fehér");
+    					return true;
+    				}
+    			}
+	    	}
     	}
+    	
     	//oszlopban 5 
     	for (int i =0; i<boardSize;i++) { 
     		szamlalo= 0;
@@ -201,40 +209,7 @@ public class Game {
 	    		}
     		}
     	}
-    	szamlalo= 0;
-    	for (int i =0; i<boardSize-5;i++) { 
-    		for (int j = 0; j < this.boardSize-5; j++) {
-	    		if (board[j][j].getCellState() == currentPlayer) {
-	    			for(int k = 0; k<5; k++) {
-	    				if(board[i+k][j-k].getCellState() == currentPlayer) {
-	    					szamlalo+=1;
-	    					if (szamlalo ==5) {
-	    						if(currentPlayer == 'W') {
-	    	    					System.out.println("nyert a fehér");
-	    	    					return true;
-	    	    				}
-	    	    				//fekete rakott ki 5-öt oszlopban
-	    	    				if(currentPlayer == 'B' && board[j+k+1][i-k-1].getCellState() != 'B') {
-	    	    					System.out.println("nyert a fekete");
-	    	    					return true;
-	    	    				}
-	    	    				//Overeline
-	    	    				else {
-	    	    					System.out.println("nyert a fehér");
-	    	    					return true;
-	    	    				}
-	    					}
-	    				}
-	    				else {
-	    					szamlalo=0;
-	    				}
-	    			}	
-	    		}	
-	    		else {
-	    			szamlalo=0;
-	    		}
-    		}
-    	}
+
     	
     	
     	

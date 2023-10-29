@@ -34,7 +34,6 @@ public class Main {
     }
     //Állapotgép 
     private void showCurrentMenu() {
-    	
         switch (currentState) {
             case MAIN_MENU:
                 frame.setContentPane(new MainMenu(this));

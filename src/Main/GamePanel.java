@@ -18,7 +18,8 @@ public class GamePanel extends JPanel{
     	this.game =game;
         this.selectedRow = -1;
         this.selectedCol= -1;
-        this.boardSize = game.getBoardSize();
+        this.boardSize = game.getBoardSize()+1;
+        System.out.println(this.boardSize);
         // Cellák kijelöléséhez szükséges
         addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -46,8 +47,8 @@ public class GamePanel extends JPanel{
     
     }
 	private void drawCells(Graphics g) {
-		for (int row = 0; row < boardSize; row++) {
-            for (int col = 0; col < boardSize; col++) {     
+		for (int row = 0; row < this.boardSize; row++) {
+            for (int col = 0; col < this.boardSize; col++) {     
                 // A paint metódus hívása a cellára
             	game.getCell(row, col).paint(g, cellSize, startX, startY);
         	}
@@ -71,10 +72,11 @@ public class GamePanel extends JPanel{
     private void updateSelectedCell(int x, int y) {
     	selectedCol = ((x+cellSize/2)/cellSize);
     	selectedRow= ((y+cellSize/2)/cellSize);
-    	if (selectedCol < 1 || selectedCol > boardSize - 1 || selectedRow < 1 || selectedRow > boardSize - 1) {
+    	if (selectedCol < 1 || selectedCol > boardSize -1  || selectedRow < 1 || selectedRow > boardSize - 1) {
             selectedCol = -1;
             selectedRow = -1;
         }    	
+    	
     }
     //Kirajzolja azt a cellát, amelyen áll az egér
     private void highlightCell(Graphics g) {
@@ -92,7 +94,7 @@ public class GamePanel extends JPanel{
         if (selectedRow != -1 && selectedCol != -1) {
             // Hozzáadja a kiválasztott cellához és oszlophoz az éppen soron lévő játékos bábuját
             game.makeMove(selectedCol-1, selectedRow-1);
-            
+            System.out.println((selectedRow-1) +" " + (selectedCol-1));
 
         }
     }
