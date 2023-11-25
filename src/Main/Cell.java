@@ -33,12 +33,13 @@ public class Cell {
 	protected void setCellState(char s) {
 		if(s =='B' && isWhite==false) {
 			this.isBlack=true;
-			this.isSelected = false;
+			
 		}
 		else if(s =='W' && isBlack ==false) {
 			this.isWhite=true;
+			this.isSelected = false;
 		}
-		else if(s =='S') {
+		else if(s =='S' ) {
 			this.isSelected=true;
 		}
 		else if(s=='E') {

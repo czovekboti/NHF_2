@@ -1,0 +1,20 @@
+AI_GAME
+15
+7
+B
+W
+E E E E E E E E E E E E E E E 
+E E E E E E E E E E E E E E E 
+E E E E E E E E E E E E E E E 
+E E E E E E E E E E E E E E E 
+E E E E E E E E E E E E E E E 
+E E E E E E E E E E E E E E E 
+E W E E E E E E E E E E E E E 
+E W E E E E B E E E E E E E E 
+E E E E E B E E E E E E E E E 
+E E E W E E E W E E E E E E E 
+E E E E E E B B E E E E E E E 
+E E E E E E W E E E E E E E E 
+E E E E E E E E E E E E E E E 
+E E E E E E E E E E E E E E E 
+E E E E E E E E E E E E E E E 

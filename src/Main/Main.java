@@ -11,6 +11,7 @@ public class Main {
 	private int size;
     private JFrame frame;
     private States currentState;
+    public GamePanel gamePanel;
     public Main() {    	
     	//Ablak létrehozása
         frame = new JFrame("Renju");
@@ -18,11 +19,9 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon logo = new ImageIcon("C:\\Users\\CzövekBotond\\eclipse-workspace\\NHF_2\\src\\logo.jpg");
         frame.setIconImage(logo.getImage());
-        frame.setSize(800, 823);
+        frame.setSize(770, 823);
         frame.setLocationRelativeTo(null);
-        // Kezdeti állapot beállítása
         currentState = States.MAIN_MENU;
-        // Jelenlegi állapot megjelenítése
         showCurrentMenu();
         frame.setVisible(true);
     }
@@ -32,6 +31,7 @@ public class Main {
     public int getsize() {
     	return size;
     }
+    public JFrame getFrame() {return frame;} 
     //Állapotgép 
     private void showCurrentMenu() {
         switch (currentState) {
@@ -45,26 +45,37 @@ public class Main {
                 frame.setContentPane(new SizeMenu(this));
                 break;
             case AI_GAME:
-                frame.setContentPane(new GamePanel(new AiGame(this.getsize())));
+                frame.setContentPane(new GamePanel(new AiGame(this.getsize()),this,this.frame));
                 break;
             case PLAYERS_GAME:
-                frame.setContentPane(new GamePanel(new PlayersGame(this.getsize())));
+                frame.setContentPane(new GamePanel(new PlayersGame(this.getsize()), this,this.frame));
                 break;
+            case LOADED_GAME:
+            	frame.setContentPane(gamePanel); 
         }
         
-        if (currentState != States.PLAYERS_GAME && currentState != States.AI_GAME ) {
+        if (currentState != States.PLAYERS_GAME && currentState != States.AI_GAME && currentState != States.LOADED_GAME) {
 	        Image backgroundImage = new ImageIcon("C:\\Users\\CzövekBotond\\eclipse-workspace\\NHF_2\\src\\logo.jpg").getImage();;
 	    	frame.setLayout(new BorderLayout());
 	        frame.add(new JLabel(new ImageIcon(backgroundImage)));}
-        frame.revalidate();
-        frame.repaint();
+        	frame.revalidate();
+        	frame.repaint();
         
     }
 
-    public void setCurrentState(States newState) {
+    public void setCurrentStatePaint(States newState) {
         currentState = newState;
         showCurrentMenu();
     }
+    public void setCurrentState(States newState) {
+        currentState = newState;
+        
+    }
+    public States getCurrentState() {
+        return currentState;
+    }
+    
+    
 
     public static void main(String[] args) {
     	SwingUtilities.invokeLater(() -> {
