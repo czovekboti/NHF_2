@@ -26,7 +26,7 @@ public class SizeMenu extends JPanel {
         sizeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                main.setCurrentState(States.PLAYER_MENU);
+                main.setCurrentStatePaint(States.PLAYER_MENU);
                 main.setsize(size);
             }
         });

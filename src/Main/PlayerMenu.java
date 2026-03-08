@@ -13,14 +13,14 @@ public class PlayerMenu extends JPanel {
 	     aiButton.addActionListener(new ActionListener() {
 	     @Override
 	     public void actionPerformed(ActionEvent e) {
-	         main.setCurrentState(States.AI_GAME);
+	         main.setCurrentStatePaint(States.AI_GAME);
 	     }
 	     });
 	     JButton playersButton = new JButton("1v1");
 	     playersButton.addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent e) {
-	             main.setCurrentState(States.PLAYERS_GAME);
+	             main.setCurrentStatePaint(States.PLAYERS_GAME);
 	         }
 	     });
 	     aiButton.setBounds(325, 400,150,100);
